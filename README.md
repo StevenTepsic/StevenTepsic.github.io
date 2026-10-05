@@ -168,4 +168,4 @@ All three enhancements are submitted and graded. Before the final ePortfolio:
 ## Contact
 
 Steven Tepsic
-steventepsicbhs@gmail.com
+stevent@rewyndr.com
