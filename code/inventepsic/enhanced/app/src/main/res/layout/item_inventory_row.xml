@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="2dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="1dp"
+    app:strokeColor="@color/Divide"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:gravity="center_vertical">
+
+        <!-- SKU -->
+        <TextView
+            android:id="@+id/tvRowSku"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="@string/sku_001"
+            android:textSize="13sp"
+            android:textColor="@color/TextPrimary"
+            android:textStyle="bold"
+            android:paddingStart="8dp" />
+
+        <!-- description -->
+        <TextView
+            android:id="@+id/tvRowDescription"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="wrap_content"
+            android:text="@string/item_description"
+            android:textSize="13sp"
+            android:textColor="@color/TextPrimary"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- quantity -->
+        <TextView
+            android:id="@+id/tvRowQuantity"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/Success"
+            android:gravity="center" />
+
+        <!-- loc -->
+        <TextView
+            android:id="@+id/tvRowLocation"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:text="@string/sr_location"
+            android:textSize="12sp"
+            android:textColor="@color/TextSecond" />
+
+        <!-- buttons -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnEditRow"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/edit_icon"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_item"
+                android:padding="4dp"
+                app:tint="@color/Primary" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteRow"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/delete_icon"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_item"
+                android:padding="4dp"
+                app:tint="@color/Error" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
