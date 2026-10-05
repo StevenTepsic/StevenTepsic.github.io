@@ -6,13 +6,12 @@ This is my CS-499 capstone ePortfolio. It shows three projects from earlier cour
 
 ## Start Here
 
-1. **Professional Self-Assessment**
-   <!-- TODO: link the self-assessment page. It goes first, per the Module Seven requirements. -->
+1. [Professional Self-Assessment](/self-assessment)
 2. [Code Review Video](#code-review-video) (my walkthrough of the original code and my enhancement plans)
 3. **Projects**
-   - [InvenTepsic: Software Design and Engineering](#1-inventepsic-software-design-and-engineering)
-   - [Breakout Game: Algorithms and Data Structures](#2-breakout-game-algorithms-and-data-structures)
-   - [Grazioso Salvare Dashboard: Databases](#3-grazioso-salvare-dashboard-databases)
+   - [InvenTepsic: Software Design and Engineering](/inventepsic)
+   - [Breakout Game: Algorithms and Data Structures](/breakout)
+   - [Grazioso Salvare Dashboard: Databases](/grazioso)
 4. [Course Outcomes](#course-outcomes)
 5. [Instructor Feedback](#instructor-feedback)
 
@@ -34,7 +33,7 @@ This is my informal code review of all three original projects, recorded before 
 
 ## Projects
 
-Each project below shows the original version, the enhanced version, and my narrative. The narrative explains why I picked the project, what I learned, and which course outcomes it covers.
+Each project below links to the original code, the enhanced code, and my narrative. The narrative explains why I picked the project, what I learned, how I used my instructor's feedback, and which course outcomes it covers.
 
 ### 1. InvenTepsic: Software Design and Engineering
 
@@ -49,14 +48,15 @@ InvenTepsic is an Android inventory app. A user can log in, add and search inven
 - Built CameraX and ML Kit barcode scanning into the add-item screen, so scanning a product fills in the UPC field instead of typing it.
 - Added the same scanning to the search screen.
 - Replaced plaintext passwords with salted PBKDF2 hashes. Each user gets a random salt, and login re-hashes the entered password and compares it to the stored hash.
+- Wrote 19 automated tests for authentication and database operations. All 19 pass.
 
-**Skills shown:** Android development, camera and ML integration, secure password storage, manual regression testing.
+**Skills shown:** Android development, camera and ML integration, secure password storage, automated and manual testing.
 
 **Course outcomes covered:** 4 (well-founded and innovative techniques) and 5 (a security mindset).
 
-**What I learned:** The security fix was bigger than I expected. Once passwords were hashed, I could no longer compare them inside the SQL query, so I had to rewrite the login check to look up the user first and compare the hash in Java.
+**What I learned:** The security fix was bigger than I expected. Once passwords were hashed, I could no longer compare them inside the SQL query, so I had to rewrite the login check to look up the user first and compare the hash in Java. The tests only cover the database layer, so I still checked the screens and the camera scanning by hand.
 
-<!-- TODO: link original code, enhanced code, and narrative for this project. -->
+**Links:** [Original code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/inventepsic/original) | [Enhanced code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/inventepsic/enhanced) | [Automated tests](https://github.com/StevenTepsic/StevenTepsic.github.io/blob/main/code/inventepsic/enhanced/app/src/androidTest/java/com/zybooks/inventoryapp/InventoryDbHelperTest.java) | [Read the narrative](/inventepsic)
 
 ### 2. Breakout Game: Algorithms and Data Structures
 
@@ -70,18 +70,28 @@ A Minecraft-themed Breakout game written in C++ and OpenGL.
 - Replaced the 77 brick variables with a single `vector<Brick>`.
 - Built a spatial grid on top of that vector, so the ball only gets checked against the bricks near it instead of all 77 every frame.
 - Replaced the 77-call collision chain and the 77-call draw chain with short loops.
+- Wrote a standalone benchmark that compares the original approach to the grid at 77, 770, 7,700, and 77,000 bricks.
 
-**Skills shown:** Data structure design, spatial partitioning, reasoning about performance trade-offs, C++ memory safety.
+**Skills shown:** Data structure design, spatial partitioning, reasoning about performance trade-offs, measuring a change before claiming it helps, C++ memory safety.
 
 **Course outcome covered:** 3 (algorithmic principles and design trade-offs).
 
-**What I learned:** The grid stores pointers into the vector, so the vector can never resize after the grid is built. Reserving all 77 slots up front avoids that. At this level size you won't see a frame rate difference. The point is that the design holds up as the level gets bigger.
+**Benchmark results:** The original does one collision check per brick per frame. The grid does about 8, no matter how big the level is. Here are the results from my machine, built with optimizations.
 
-<!-- TODO: link original code, enhanced code, and narrative for this project. -->
+| Bricks | Checks per frame (original) | Checks per frame (grid) | ns per frame (original) | ns per frame (grid) | Speedup |
+|---|---|---|---|---|---|
+| 77 | 77.0 | 7.6 | 79 | 35 | 2.3x |
+| 770 | 770.0 | 8.4 | 588 | 34 | 17.1x |
+| 7,700 | 7,700.0 | 8.4 | 5,661 | 39 | 146.6x |
+| 77,000 | 77,000.0 | 8.5 | 57,058 | 46 | 1,241.7x |
+
+**What I learned:** The grid stores pointers into the vector, so the vector can never resize after the grid is built. Reserving all 77 slots up front avoids that. At the real level size, both versions are far too fast to change the frame rate, so I'm not claiming the game runs faster today. The point is that the grid's cost stays flat as the level grows, while the original's grows with every brick.
+
+**Links:** [Original code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/breakout/original) | [Enhanced code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/breakout/enhanced) | [Benchmark](https://github.com/StevenTepsic/StevenTepsic.github.io/blob/main/code/breakout/enhanced/collision_benchmark.cpp) | [Read the narrative](/breakout)
 
 ### 3. Grazioso Salvare Dashboard: Databases
 
-**Original course:** CS 340, Advanced Programming Concepts (C-3 term, 2026)
+**Original course:** CS 340, Client/Server Development (C-3 term, 2026)
 
 A dashboard for a fictional rescue-animal training company. A Python CRUD module talks to MongoDB through PyMongo, and a Dash dashboard lets a user filter shelter animals by rescue type, browse them in a table, see a breed chart, and view an animal's location on a map.
 
@@ -98,9 +108,9 @@ A dashboard for a fictional rescue-animal training company. A Python CRUD module
 
 **Course outcomes covered:** 1 (supporting organizational decision-making) and 2 (clear communication with stakeholders).
 
-**What I learned and what I couldn't do:** I no longer have the dataset or the course's Codio environment, so I couldn't run the dashboard against real data. I checked the changes by reading the code carefully, confirming both files parse, and confirming the old logic was fully replaced. That isn't the same as a live test, and I say so in my narrative.
+**What I learned and what I couldn't do:** I deleted the dataset after the course, and I lost access to the course's Codio environment once the course dropped off Brightspace, so I couldn't run the dashboard against real data. I checked the changes by reading the code carefully, confirming both files parse, and confirming the old logic was fully replaced. That isn't the same as a live test, and I say so in my narrative.
 
-<!-- TODO: link original code, enhanced code, and narrative for this project. -->
+**Links:** [Original code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/grazioso/original) | [Enhanced code](https://github.com/StevenTepsic/StevenTepsic.github.io/tree/main/code/grazioso/enhanced) | [Read the narrative](/grazioso)
 
 ## Course Outcomes
 
@@ -119,10 +129,11 @@ A dashboard for a fictional rescue-animal training company. A Python CRUD module
 **Databases:** SQLite, MongoDB, PyMongo
 **Web:** Dash, Angular, Express
 **Security:** Password hashing (PBKDF2), secure coding, OWASP Dependency-Check
+**Testing:** Android instrumented tests, performance benchmarking
 
 ## Instructor Feedback
 
-Every graded piece of CS-499 so far, with Prof. Sanford's feedback.
+Every graded piece of CS-499, with Prof. Sanford's feedback.
 
 | Assignment | Grade |
 |---|---|
@@ -142,9 +153,9 @@ Every graded piece of CS-499 so far, with Prof. Sanford's feedback.
 
 **Milestone One code review (40/40).** The review covered software design and engineering, algorithms and data structures, and databases, using relevant code from my Android inventory app, my C++ work, and my Python/MongoDB implementation. The presentation was organized, professional, and about 30 minutes long.
 
-**InvenTepsic (40/40).** The submission met expectations. Barcode scanning and salted PBKDF2 password hashing were a meaningful improvement, and my testing showed attention to functionality, security, permissions, and regressions. Next step: build automated tests around authentication and database operations to back up the manual testing.
+**InvenTepsic (40/40).** The submission met expectations. Barcode scanning and salted PBKDF2 password hashing were a meaningful improvement, and my testing showed attention to functionality, security, permissions, and regressions. The next step was to build automated tests around authentication and database operations to back up the manual testing.
 
-**Breakout (40/40).** The submission met expectations. Replacing 77 individually managed bricks with a vector and spatial grid was called a meaningful algorithm and data-structure improvement, and the code matched my narrative. Next step: add performance measurements comparing the original 77 collision checks per frame to the grid approach, especially as the level size increases.
+**Breakout (40/40).** The submission met expectations. Replacing 77 individually managed bricks with a vector and spatial grid was called a meaningful algorithm and data-structure improvement, and the code matched my narrative. The next step was to add performance measurements comparing the original 77 collision checks per frame to the grid approach, especially as the level size increases.
 
 **Grazioso Salvare dashboard (40/40).** The submission met expectations. CRUD validation, corrected collection handling, and database-side aggregation improved the app, and moving the breed counting into MongoDB cuts unnecessary data retrieval. The feedback also said I "appropriately distinguished code-level verification from live testing, demonstrating good judgment rather than claiming testing that could not be completed."
 
@@ -158,14 +169,15 @@ Every graded piece of CS-499 so far, with Prof. Sanford's feedback.
 
 **5-1 (15/15).** A thoughtful analysis of emerging trends tied directly to my professional experience and future development work, going past description to how these technologies change developers' responsibilities. The checkpoint table clearly showed my progress, instructor feedback, and the work that remains.
 
-## Next Steps
+## What I Did With the Feedback
 
-All three enhancements are submitted and graded. Before the final ePortfolio:
-- **InvenTepsic:** add automated tests around authentication and database operations.
-- **Breakout:** measure the 77-check approach against the grid as the level grows.
-- **Grazioso Salvare:** no action items from feedback. If I can get a working MongoDB instance and the dataset back, I'll run the dashboard live to close the gap between code-level verification and a real test.
+After the milestones were graded, I went back and acted on the two suggestions I got.
+
+- **InvenTepsic:** I added 19 automated tests for authentication and database operations. They check logins, duplicate usernames, a SQL injection attempt, that no stored value contains a plaintext password, that identical passwords get different stored values, and the inventory add, read, update, and delete operations. All 19 pass.
+- **Breakout:** I measured the original 77-check approach against the grid at four level sizes. The grid stays near 8 checks per frame, while the original grows with the brick count. The results table is in the Breakout section above.
+- **Grazioso Salvare:** The feedback had no action items. If I get a working MongoDB instance and the dataset back, I'll run the dashboard live to close the gap between code-level verification and a real test.
 
 ## Contact
 
 Steven Tepsic
-stevent@rewyndr.com
+steventepsicbhs@gmail.com
