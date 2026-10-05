@@ -37,3 +37,4 @@ The skills I used most on this project were Android database design, secure pass
 
 All 19 tests passed.
 
+![InventoryDbHelperTest results, 19 of 19 passed](/assets/inventepsic-tests.png)
